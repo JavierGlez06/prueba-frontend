@@ -1,26 +1,41 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div :class="darkMode ? 'bg-dark text-white' : 'bg-light text-dark'">
+    <div class="container mt-3">
+      <h1 class="text-center">Usuarios</h1>
+      <button @click="toggleDarkMode" class="btn btn-secondary mb-3">
+        {{ darkMode ? 'Modo Claro' : 'Modo Oscuro' }}
+      </button>
+      <UsersTable />
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue';
+import UsersTable from './components/UsersTable.vue';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  components: { UsersTable },
+  setup() {
+    const darkMode = ref(false);
+
+    const toggleDarkMode = () => {
+      darkMode.value = !darkMode.value;
+    };
+
+    return { darkMode, toggleDarkMode };
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.bg-dark {
+  background-color: #343a40 !important;
+  color: white !important;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+  color: black !important;
 }
 </style>
